@@ -1,12 +1,36 @@
-# React + Vite
+# 🗒️ To-Do List React Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, dark-themed to-do list app built with React.  
+This project was created as part of a 4Geeks Academy assignment to demonstrate mastery of React hooks, dynamic rendering, and modern UI design.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 [View the deployed project](https://todo-list-brown-eta.vercel.app/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Add tasks by typing and pressing **Enter**
+- Tasks are displayed in a clean, stacked list
+- Hover over a task to reveal a delete button
+- Message displays when there are no tasks
+- Responsive and dark-mode friendly layout
+
+## Tech Stack
+
+- React (via Vite)
+- JavaScript
+- CSS (inline styling)
+- Vercel (for deployment)
+
+## Learning Goals
+
+- Use `useState` to manage form input and list state
+- Use `map()` to dynamically render list items
+- Handle user input events (`onChange`, `onKeyDown`)
+- Apply conditional rendering and minimalistic styling
+- Practice component organization and UI responsiveness
+- Deploy a React app with Vercel
+
+## Author
+
+Built by [@Cyberbot777](https://github.com/Cyberbot777)
