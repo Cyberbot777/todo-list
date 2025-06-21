@@ -1,11 +1,11 @@
-# 🗒️ To-Do List React Project
+# To-Do List React Project
 
 A sleek, dark-themed to-do list app built with React.  
 This project was created as part of a 4Geeks Academy assignment to demonstrate mastery of React hooks, dynamic rendering, and modern UI design.
 
 ## Live Demo
 
-👉 [View the deployed project](https://todo-list-brown-eta.vercel.app/)
+[View the deployed project](https://todo-list-brown-eta.vercel.app/)
 
 ## Features
 
