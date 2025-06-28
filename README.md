@@ -1,35 +1,62 @@
-# To-Do List React Project
+
+# To-Do List React Project – 4Geeks API Version
 
 A sleek, dark-themed to-do list app built with React.  
-This project was created as part of a 4Geeks Academy assignment to demonstrate mastery of React hooks, dynamic rendering, and modern UI design.
+This branch connects the frontend to the official 4Geeks Academy REST API using `fetch()` calls for full CRUD functionality.
 
-## Live Demo
+This version was created to meet the official assignment specifications exactly, using the provided backend routes and methods.
 
-[View the deployed project](https://todo-list-brown-eta.vercel.app/)
+---
+
+## 🔗 Live Demo
+
+[View the deployed project](https://todo-list-7qtf20nhr-richard-s-projects-24c03fe9.vercel.app/)
+
+---
 
 ## Features
 
-- Add tasks by typing and pressing **Enter**
-- Tasks are displayed in a clean, stacked list
-- Hover over a task to reveal a delete button
-- Message displays when there are no tasks
-- Responsive and dark-mode friendly layout
+- Load tasks on app start via `GET` request
+- Add tasks with **Enter** key via `POST`
+- Delete individual tasks using `DELETE`
+- Clear all tasks using batched `DELETE` requests
+- Fully synced with [playground.4geeks.com](https://playground.4geeks.com) API
+- Hover-based delete buttons and clean empty state messaging
+- Responsive, modern dark-themed UI
+
+---
 
 ## Tech Stack
 
 - React (via Vite)
-- JavaScript
-- CSS (inline styling)
-- Vercel (for deployment)
+- JavaScript (ES6)
+- CSS (inline + dynamic styling)
+- 4Geeks REST API
+- Vercel (frontend deployment)
 
-## Learning Goals
+---
 
-- Use `useState` to manage form input and list state
-- Use `map()` to dynamically render list items
-- Handle user input events (`onChange`, `onKeyDown`)
-- Apply conditional rendering and minimalistic styling
-- Practice component organization and UI responsiveness
-- Deploy a React app with Vercel
+## Learning Goals (Met)
+
+- `useState` and `useEffect` for side-effect-based API sync
+- `map()` and conditional rendering
+- RESTful API integration with async/await and fetch
+- Error handling and optimistic UI updates
+- Git branching and project cleanup
+- Following and delivering to real-world API specs
+
+---
+
+## API Integration Details
+
+This project interacts with the official 4Geeks API:
+- `GET https://playground.4geeks.com/todo/users/richard_h_todo`
+- `POST https://playground.4geeks.com/todo/todos/richard_h_todo`
+- `DELETE https://playground.4geeks.com/todo/todos/:id`
+
+All calls are authenticated-free and use the `richard_h_todo` namespace.
+
+---
 
 ## Author
 
