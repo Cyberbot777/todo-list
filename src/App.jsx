@@ -1,21 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  // State
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
   const [hovered, setHovered] = useState(null);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && input.trim() !== "") {
-      setTasks([...tasks, input.trim()]);
-      setInput("");
+  // Load Todos on Start
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/todos");
+        const data = await res.json();
+        setTodos(data);
+        console.log("Fetched todos:", data);
+      } catch (err) {
+        console.error("Error fetching todos", err);
+      }
+    };
+
+    fetchTodos();
+  }, []);
+
+  // Add Todo
+  const addTodo = async (newTaskLabel) => {
+    const updatedTodos = [...todos, { label: newTaskLabel, done: false }];
+    setTodos(updatedTodos);
+    setInput("");
+
+    try {
+      const res = await fetch("http://localhost:3001/todos", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedTodos),
+      });
+
+      const result = await res.json();
+      console.log("Saved to backend:", result);
+    } catch (err) {
+      console.error("Failed to save todos", err);
     }
   };
 
-  const handleDelete = (indexToDelete) => {
-    const filteredTasks = tasks.filter((_, index) => index !== indexToDelete);
-    setTasks(filteredTasks);
+  // Clear All Todos
+  const clearAllTodos = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/todos", {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        setTodos([]);
+        console.log("All todos cleared");
+      } else {
+        console.error("Failed to clear todos");
+      }
+    } catch (err) {
+      console.error("Error clearing todos", err);
+    }
+  };
+
+  // Handle Enter Key
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && input.trim() !== "") {
+      addTodo(input.trim());
+    }
+  };
+
+  // Delete Todo
+  const deleteTodo = async (indexToRemove) => {
+    const updatedTodos = todos.filter((_, index) => index !== indexToRemove);
+    setTodos(updatedTodos);
+
+    try {
+      const res = await fetch("http://localhost:3001/todos", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedTodos),
+      });
+
+      const result = await res.json();
+      console.log("Todo deleted and saved:", result);
+    } catch (err) {
+      console.error("Failed to delete todo", err);
+    }
   };
 
   return (
@@ -60,9 +133,9 @@ function App() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           style={{
-            width: "90%", 
-            margin: "0 auto", 
-            display: "block", 
+            width: "90%",
+            margin: "0 auto",
+            display: "block",
             padding: "1rem",
             fontSize: "1rem",
             backgroundColor: "#1a1a1a",
@@ -72,9 +145,10 @@ function App() {
             marginBottom: "1rem",
           }}
         />
+
         <div style={{ maxHeight: "300px", overflowY: "auto" }}>
           <ul style={{ padding: 0, margin: 0 }}>
-            {tasks.length === 0 ? (
+            {todos.length === 0 ? (
               <li
                 style={{
                   color: "#666",
@@ -86,7 +160,7 @@ function App() {
                 No tasks, add a task
               </li>
             ) : (
-              tasks.map((task, index) => (
+              todos.map((item, index) => (
                 <li
                   key={index}
                   style={{
@@ -101,10 +175,10 @@ function App() {
                   onMouseEnter={() => setHovered(index)}
                   onMouseLeave={() => setHovered(null)}
                 >
-                  {task}
+                  {item.label}
                   {hovered === index && (
                     <button
-                      onClick={() => handleDelete(index)}
+                      onClick={() => deleteTodo(index)}
                       style={{
                         position: "absolute",
                         right: "1rem",
@@ -124,6 +198,40 @@ function App() {
               ))
             )}
           </ul>
+
+          {todos.length > 0 && (
+            <button
+              onClick={clearAllTodos}
+              style={{
+                marginTop: "1rem",
+                padding: "0.75rem 1.5rem",
+                backgroundColor: "rgba(255, 255, 255, 0.04)",
+                color: "#ccc",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: 500,
+                fontSize: "0.9rem",
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                backdropFilter: "blur(6px)",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.08)";
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.04)";
+                e.currentTarget.style.color = "#ccc";
+              }}
+            >
+              Clear All Tasks
+            </button>
+          )}
         </div>
       </div>
     </div>
