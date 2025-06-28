@@ -3,8 +3,7 @@
 
 A sleek, dark-themed full-stack to-do list app built with React and a custom Express backend.
 
-This project was created as part of a 4Geeks Academy assignment to demonstrate mastery of React, API integration, and modern UI design.  
-When the official API proved unreliable, a fully custom REST backend was built to meet all requirements.
+This project was created to demonstrate mastery of React, API integration, and modern UI design. A fully custom REST backend was built to meet all requirements.
 
 ---
 
