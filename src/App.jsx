@@ -6,12 +6,48 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [hovered, setHovered] = useState(null);
 
+  
   // Load Todos
   useEffect(() => {
     const fetchTodos = async () => {
+      const USERNAME = "richard_h_todo";
+
+      const createUserIfNotExists = async () => {
+        try {
+          const res = await fetch(
+            `https://playground.4geeks.com/todo/users/${USERNAME}`
+          );
+
+          if (!res.ok) {
+            console.log("User not found. Creating user...");
+
+            const createRes = await fetch(
+              `https://playground.4geeks.com/todo/users/${USERNAME}`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify([]),
+              }
+            );
+
+            if (!createRes.ok) {
+              throw new Error("Failed to create user");
+            }
+
+            console.log("User created!");
+          }
+        } catch (err) {
+          console.error("Error checking/creating user:", err);
+        }
+      };
+
       try {
+        await createUserIfNotExists();
+
         const res = await fetch(
-          "https://playground.4geeks.com/todo/users/richard_h_todo"
+          `https://playground.4geeks.com/todo/users/${USERNAME}`
         );
         const data = await res.json();
         setTodos(data.todos);
@@ -23,6 +59,7 @@ function App() {
 
     fetchTodos();
   }, []);
+
 
   // Post
   const handleKeyDown = async (e) => {

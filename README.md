@@ -1,4 +1,3 @@
-
 # To-Do List React Project – 4Geeks API Version
 
 A sleek, dark-themed to-do list app built with React.  
@@ -20,6 +19,7 @@ This version was created to meet the official assignment specifications exactly,
 - Add tasks with **Enter** key via `POST`
 - Delete individual tasks using `DELETE`
 - Clear all tasks using batched `DELETE` requests
+- Auto-creates user if not found on the server (persistent user logic)
 - Fully synced with [playground.4geeks.com](https://playground.4geeks.com) API
 - Hover-based delete buttons and clean empty state messaging
 - Responsive, modern dark-themed UI
@@ -42,6 +42,7 @@ This version was created to meet the official assignment specifications exactly,
 - `map()` and conditional rendering
 - RESTful API integration with async/await and fetch
 - Error handling and optimistic UI updates
+- Fallback handling for deleted users
 - Git branching and project cleanup
 - Following and delivering to real-world API specs
 
@@ -50,11 +51,13 @@ This version was created to meet the official assignment specifications exactly,
 ## API Integration Details
 
 This project interacts with the official 4Geeks API:
+
 - `GET https://playground.4geeks.com/todo/users/richard_h_todo`
 - `POST https://playground.4geeks.com/todo/todos/richard_h_todo`
 - `DELETE https://playground.4geeks.com/todo/todos/:id`
 
-All calls are authenticated-free and use the `richard_h_todo` namespace.
+All calls are unauthenticated and use the `richard_h_todo` namespace.  
+If the user is not found, the app will automatically create the user via `POST` and retry loading tasks.
 
 ---
 
